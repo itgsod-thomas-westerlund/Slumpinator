@@ -1,4 +1,4 @@
-class Elev
+class Student
 
   attr_reader :name, :grade, :opt_grade_min, :opt_grade_max
 

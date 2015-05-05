@@ -1,23 +1,44 @@
-require_relative 'elever'
+require_relative 'student'
 
-def slump2
+def student_list_maker
 
-  elever_list = []
-  elever_list_f = []
+  # Public:
+  #
+  # <How it works/Example>
+  # elev_list_maker
+  # students.txt = Daniel_Berg 9
+  #                Bosse_Python 8
+  #
+  # => list_of_all_students = [#<Student:0x007fe2ca020968>, #<Student:0x007fe2ca020238>]
+  #
+  # Makes a list of students as object from class Student
 
-  f = File.open('13.txt', 'r')
-  f.each_line do |line|
-    x = line.split(' ')
-    elev = Elev.new(x.first, x.last)
-    elever_list<<elev
-    elever_list_f<<elev
+
+
+
+  list_of_all_students = []
+
+  file = File.open('students.txt', 'r')
+  file.each_line do |line|
+    values_of_row = line.split(' ')
+    student = Student.new(values_of_row.first, values_of_row.last)
+    list_of_all_students<<student
+  end
+  return list_of_all_students
 
   end
+
+def main
+
+  list_of_all_students = student_list_maker
+
+
+
   number = 0
   lista = 0
-  while lista < elever_list.length
+  while lista < list_of_all_students.length
     lista += 1
-    ropad = elever_list[0 + number]
+    ropad = list_of_all_students[0 + number]
      #elever_list[0 + number]
     puts ""
     puts ropad.name
@@ -26,19 +47,19 @@ def slump2
     if y == ""
       puts "Närvarande"
       number += 1
-      elever_list_f.delete(ropad)
+      list_of_all_missing_students.delete(ropad)
     else
       puts "Frånvarande"
-      elever_list.delete(ropad)
+      list_of_all_students.delete(ropad)
     end
 
   end
 
-  while elever_list.count >= 2
+  while list_of_all_students.count >= 2
     good_pair = false
-    pair1 = elever_list.sample
-    elever_list.delete(pair1)
-    partner_list = elever_list.dup
+    pair1 = list_of_all_students.sample
+    list_of_all_students.delete(pair1)
+    partner_list = list_of_all_students.dup
     desperate_level = 0
     begin
       file = File.open("#{pair1.name}.txt", "r")
@@ -76,7 +97,7 @@ def slump2
       if good_pair == false
         partner_list.delete(pair2)
         if partner_list.count == 0
-          partner_list = elever_list.dup
+          partner_list = list_of_all_students.dup
           desperate_level += 1
         end
       end
@@ -102,22 +123,22 @@ def slump2
     end
 
 
-    elever_list.delete(pair2)
+    list_of_all_students.delete(pair2)
     "#{pair1.name} + #{pair2.name} ".each_char {|c| putc c ; sleep 0.07; $stdout.flush }
     puts ""
     puts "Desperate_level = #{desperate_level}"
     puts ""
   end
-  if elever_list.count == 1
-    pair1 = elever_list.sample
+  if list_of_all_students.count == 1
+    pair1 = list_of_all_students.sample
     "#{pair1.name}".each_char {|c| putc c ; sleep 0.07; $stdout.flush }
   end
   puts ""
   puts ""
   puts "Frånvarande:"
   numberF = 0
-  until elever_list_f.count == numberF
-    puts elever_list_f[0 + numberF].name
+  until list_of_all_missing_students.count == numberF
+    puts list_of_all_missing_students[0 + numberF].name
     numberF += 1
     sleep 0.5
   end
@@ -126,6 +147,4 @@ def slump2
   puts "Thanks for using Slumpinator 3.5 Optimise Edition"
   end
 
-#slump
-
-slump2
+elev_list_maker
