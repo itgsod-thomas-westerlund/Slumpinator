@@ -36,7 +36,8 @@ def presence(list_of_all_students)
   # Public:
   #
   # Values:
-  # list_of_all_students - a list of all the students
+  #
+  # counter - keeps check that it dosent look at a position outside the list as the list gets smaller
   #
   # How it works/Example:
   #
@@ -78,11 +79,39 @@ def presence(list_of_all_students)
   return list_of_all_students_presence
 end
 
+def not_presence(list_of_all_students_missing, list_of_all_students_presence)
+
+  # Public:
+  #
+  # How it works/Example:
+  #
+  # list_of_all_students = [Daniel, Bosse]
+  # list_of_all_students_presence = [Daniel]
+  #
+  # not_presence(list_of_all_students, list_of_all_students_presence)
+  #
+  # # => list_of_all_students_missing = [Bosse]
+  #
+  # takes the list of all students and the list of students presence and starts removing the presence from the list and making it to a list of all students missing
+
+  list_of_all_students_presence = list_of_all_students_presence
+  list_of_all_students_missing = list_of_all_students_missing
+  while list_of_all_students_presence > 0
+    list_of_all_students_missing.delete(list_of_all_students_presence[0])
+    list_of_all_students_presence.delete(0)
+
+  end
+  list_of_all_students_missing
+  return list_of_all_students_missing
+
+end
+
 
 def main
 
   list_of_all_students = student_list_maker
   list_of_all_students_presence = presence(list_of_all_students)
+  list_of_all_students_missing = not_presence(list_of_all_students, list_of_all_students_presence)
 
 
 
@@ -169,8 +198,8 @@ def main
   puts ""
   puts "Frånvarande:"
   numberF = 0
-  until list_of_all_missing_students.count == numberF
-    puts list_of_all_missing_students[0 + numberF].name
+  until list_of_all_students_missing.count == numberF
+    puts list_of_all_students_missing[0 + numberF].name
     numberF += 1
     sleep 0.5
   end
