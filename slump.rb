@@ -160,6 +160,7 @@ list_of_all_students_presence = list_of_all_students_presence_fixed.dup
     good_pair = false
     pair_partner_1 = list_of_all_students_presence.sample
     list_of_all_students_presence.delete(pair_partner_1)
+    puts pair_partner_1.name
     list_of_partners = list_of_all_students_presence.dup
     desperate_level = 0
 
@@ -204,7 +205,7 @@ list_of_all_students_presence = list_of_all_students_presence_fixed.dup
     end
 
     begin
-      file = File.open("#{pair_partner_1.name}.txt", "r+")
+      file = File.open("#{pair_partner_1.name}.txt", "w")
       file.write("#{pair_partner_2.name}")
     rescue IOError => e
       #some error occur, dir not writable etc.
@@ -213,7 +214,7 @@ list_of_all_students_presence = list_of_all_students_presence_fixed.dup
     end
 
     begin
-      file = File.open("#{pair_partner_2.name}.txt", "r+")
+      file = File.open("#{pair_partner_2.name}.txt", "w")
       file.write("#{pair_partner_1.name}")
     rescue IOError => e
       #some error occur, dir not writable etc.
@@ -223,14 +224,14 @@ list_of_all_students_presence = list_of_all_students_presence_fixed.dup
 
 
     list_of_all_students_presence.delete(pair_partner_2)
-    "#{pair_partner_1.name} + #{pair_partner_2.name}".each_char {|c| putc c ; sleep 0.0; $stdout.flush }
+    "#{pair_partner_1.name} + #{pair_partner_2.name}".each_char {|c| putc c ; sleep 0.07; $stdout.flush }
     puts ""
     puts "Desperate_level = #{desperate_level}"
     puts ""
   end
   if list_of_all_students_presence.count == 1
     pair_partner_1 = list_of_all_students_presence.sample
-    "#{pair_partner_1.name}".each_char {|c| putc c ; sleep 0.0; $stdout.flush }
+    "#{pair_partner_1.name}".each_char {|c| putc c ; sleep 0.07; $stdout.flush }
   end
 
 end
